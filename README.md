@@ -21,35 +21,35 @@ After creating a VPC, you can add subnets. Each subnet resides entirely within o
 
 The wizard also creates a NAT gateway, which is used to provide internet connectivity to EC2 instances in private subnets.
 
-In the AWS Management Console, select the  Services menu, and then select VPC under Networking & Content Delivery.
+1. In the AWS Management Console, select the  Services menu, and then select VPC under Networking & Content Delivery.
 
-In the left navigation menu, choose Elastic IPs.
+1. In the left navigation menu, choose Elastic IPs.
 
-Choose Allocate Elastic IP address.
+1. Choose Allocate Elastic IP address.
 
-On the Allocate Elastic IP address page, leave the settings as is, and choose Allocate.
+1. On the Allocate Elastic IP address page, leave the settings as is, and choose Allocate.
 
-In the left navigation menu, choose VPC Dashboard.
+1. In the left navigation menu, choose VPC Dashboard.
 
-Choose Launch VPC Wizard.
+1. Choose Launch VPC Wizard.
 
-For Step 1: Select a VPC Configuration, choose VPC with Public and Private Subnets.
+1. For Step 1: Select a VPC Configuration, choose VPC with Public and Private Subnets.
 
-Choose Select.
+1. Choose Select.
 
-For Step 2: VPC with Public and Private Subnets, configure the following options:
+1. For Step 2: VPC with Public and Private Subnets, configure the following options:
 
-VPC name: Enter Lab VPC
-Availability Zone: From the dropdown list, choose the first Availability Zone.
-Public subnet name: Enter Public Subnet 1
-Availability Zone: From the dropdown list, choose the first Availability Zone (the same as used above).
-Private subnet name: Enter Private Subnet 1
-Elastic IP Allocation ID: Select the box, and select the displayed IP address.
-Choose Create VPC. It may take a few minutes for the VPC to become available.
+ - VPC name: Enter Lab VPC
+ - Availability Zone: From the dropdown list, choose the first Availability Zone.
+ - Public subnet name: Enter Public Subnet 1
+ - Availability Zone: From the dropdown list, choose the first Availability Zone (the same as used above).
+ - Private subnet name: Enter Private Subnet 1
+ - Elastic IP Allocation ID: Select the box, and select the displayed IP address.
+ - Choose Create VPC. It may take a few minutes for the VPC to become available.
 
-On the VPC Successfully Created page, choose OK.
+1. On the VPC Successfully Created page, choose OK.
 
-The wizard has provisioned a VPC with a public subnet and a private subnet in the same Availability Zone together with route tables for each subnet:
+1. The wizard has provisioned a VPC with a public subnet and a private subnet in the same Availability Zone together with route tables for each subnet:
 
 ![image](https://github.com/GowriAyyanar/Networking-Lab-2/assets/152156151/3dcac4ca-daf9-4e75-9fb1-7e5a71976fed)
 
@@ -64,78 +64,71 @@ The private subnet has a CIDR of 10.0.1.0/24, which means that it contains all I
 ## Task 2: Create additional subnets
 In this task, you create two additional subnets in a second Availability Zone. This option is useful for creating resources in multiple Availability Zones to provide high availability.
 
-In the left navigation pane, choose Subnets.
-To configure the second public subnet, choose Create subnet and configure the following options:
+1. In the left navigation pane, choose Subnets.
+1. To configure the second public subnet, choose Create subnet and configure the following options:
 
-VPC ID: From the dropdown list, choose Lab VPC.
-Subnet name: Enter Public Subnet 2    
-Availability Zone: From the dropdown list, choose the second Availability Zone.
-IPv4 CIDR block: Enter 10.0.2.0/24
-Choose Create subnet.
+ - VPC ID: From the dropdown list, choose Lab VPC.
+ - Subnet name: Enter Public Subnet 2    
+ - Availability Zone: From the dropdown list, choose the second Availability Zone.
+ - IPv4 CIDR block: Enter 10.0.2.0/24
+1. Choose Create subnet.
 
 The subnet will have all IP addresses starting with 10.0.2.x.
 
-To configure the second private subnet, choose Create subnet and configure the following options:
+1. To configure the second private subnet, choose Create subnet and configure the following options:
 
-VPC ID: From the dropdown list, choose Lab VPC.
-Subnet name: Enter Private Subnet 2
-Availability Zone: From the dropdown list, choose the second Availability Zone.
-IPv4 CIDR block: Enter 10.0.3.0/24
-Choose Create subnet.
-
-The subnet will have all IP addresses starting with 10.0.3.x.
-
- 
+ - VPC ID: From the dropdown list, choose Lab VPC.
+ - Subnet name: Enter Private Subnet 2
+ - Availability Zone: From the dropdown list, choose the second Availability Zone.
+ - IPv4 CIDR block: Enter 10.0.3.0/24
+1. Choose Create subnet.
+ The subnet will have all IP addresses starting with 10.0.3.x.
 
 ## Task 3: Create a route table
 You now configure the private subnets to route internet-bound traffic to the NAT gateway so that resources in the private subnet are able to connect to the internet while still keeping the resources private. To do this, you configure a route table.
 
 Recall that a route table contains a set of rules, called routes, that are used to determine where network traffic is directed. Each subnet in a VPC must be associated with a route table; the route table controls routing for the subnet.
 
-In the left navigation pane, choose Route Tables.
+1. In the left navigation pane, choose Route Tables.
 
-Select the check box for the route table with Yes in the Main column and Lab VPC in the VPC column. (Expand the VPC column if necessary to view the VPC name.)
+1. Select the check box for the route table with Yes in the Main column and Lab VPC in the VPC column. (Expand the VPC column if necessary to view the VPC name.)
 
-In the lower pane, choose the Routes tab.
-
+1. In the lower pane, choose the Routes tab.
 Recall that Destination 0.0.0.0/0 is set to Target nat-xxxxxxxx. This means that traffic destined for the internet (0.0.0.0/0) will be sent to the NAT gateway. The NAT gateway will then forward the traffic to the internet.
-
 This route table is therefore being used to route traffic from private subnets.
 
-In the Name column for this route table, choose the pencil , enter Private Route Table and then choose Save.
-
- 
+1. In the Name column for this route table, choose the pencil , enter Private Route Table and then choose Save.
 
 ## Task 4: Associate the subnets and add routes
-In the lower pane, choose the Subnet associations tab.
+1. In the lower pane, choose the Subnet associations tab.
 
-Under Subnets without explicit associations, choose Edit subnet associations.
+1. Under Subnets without explicit associations, choose Edit subnet associations.
 
-Select the check boxes for both Private Subnet 1 and Private Subnet 2.
+1. Select the check boxes for both Private Subnet 1 and Private Subnet 2.
 
-Choose Save associations.
+1. Choose Save associations.
 
- You now configure the route table that is used by the public subnets.
+ 1. You now configure the route table that is used by the public subnets.
 
-Select the check box for the route table with No in the Main column and Lab VPC in the VPC column, and clear the check boxes for any other route tables.
+1. Select the check box for the route table with No in the Main column and Lab VPC in the VPC column, and clear the check boxes for any other route tables.
 
-In the Name column for this route table, choose the pencil , enter Public Route Table and then choose Save.
+1. In the Name column for this route table, choose the pencil , enter Public Route Table and then choose Save.
 
-In the lower pane, choose the Routes tab.
+1. In the lower pane, choose the Routes tab.
 
 Note that Destination 0.0.0.0/0 is set to Target igw-xxxxxxxx, which is the internet gateway. This means that internet-bound traffic will be sent straight to the internet via the internet gateway.
 
-You now associate this route table to the public subnets.
+1. You now associate this route table to the public subnets.
 
-Choose the Subnet associations tab.
+1. Choose the Subnet associations tab.
 
-In the Subnets without explicit associations section, choose Edit subnet associations.
+1. In the Subnets without explicit associations section, choose Edit subnet associations.
 
-Select the check boxes for both Public Subnet 1 and Public Subnet 2.
+1. Select the check boxes for both Public Subnet 1 and Public Subnet 2.
 
-Choose Save associations.
+1. Choose Save associations.
 
-Your VPC now has public and private subnets configured in two Availability Zones:
+1. Your VPC now has public and private subnets configured in two Availability Zones:
 
 ![image](https://github.com/GowriAyyanar/Networking-Lab-2/assets/152156151/7abc3edd-aaa4-42b3-80b0-964aedb3f6ef)
 
